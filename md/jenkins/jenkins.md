@@ -54,7 +54,7 @@ jenkins/jenkins:latest # 指定镜像的版本 格式：仓库地址/镜像项�
 
 访问 http://宿主机 IP:50001/jenkins/
 
-![](https://new-coder-fei.github.io/pic/images/jenkins/1.png)
+![](https://new-coder-fei.github.io/pic/images/jenkins/2.png)
 
 ###### 修改方式有多种：
 

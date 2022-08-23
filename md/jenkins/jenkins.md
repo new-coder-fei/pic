@@ -5,17 +5,17 @@
 <!-- md超链接的语法是 [超链接的文字](链接地址)  ，如下-->
 <!-- 我自己已更改Markdown All in One插件的快捷键 -->
 
-# docker+jenkins+maven+springboot自动化部署实战记录
+# docker+jenkins+maven+springboot 自动化部署实战记录
 
 ## 搭建 jenkins 服务
 
-
 ### 运行 jenkins 服务
 
-##### `docker run -d --name jenkins -uroot   -p 50001:8080 -p 50000:50000  --restart=always -e TZ=“Asia/Shanghai” -e JENKINS_OPTS="--prefix=/jenkins" -e JENKINS_ARGS="--prefix=/jenkins" --privileged=true -v /install/jenkins_home:/var/jenkins_home -v /etc/localtime:/etc/localtime  jenkins/jenkins:latest`
+##### `docker run -d --name jenkins -uroot -p 50001:8080 -p 50000:50000 --restart=always -e TZ=“Asia/Shanghai” -e JENKINS_OPTS="--prefix=/jenkins" -e JENKINS_ARGS="--prefix=/jenkins" --privileged=true -v /install/jenkins_home:/var/jenkins_home -v /etc/localtime:/etc/localtime jenkins/jenkins:latest`
 
 ---
 
+·
 
 #### 命令详细解释：
 
@@ -25,16 +25,15 @@ docker run
 
 --restart always #能够使我们在重启 docker 时，自动启动相关容器 （所有 docker 容器基本必须加的参数）
 
--p 50001:8080 #用宿主机的 50001 端口映射容器内部服务的 8080 端口（jenkins服务的web界面服务端口，50001可以换成任意宿主机开放的端口，-p 50000:50000 这个默认的不用改）
+-p 50001:8080 #用宿主机的 50001 端口映射容器内部服务的 8080 端口（jenkins 服务的 web 界面服务端口，50001 可以换成任意宿主机开放的端口，-p 50000:50000 这个默认的不用改）
 
--e TZ=“Asia/Shanghai” #设置jenkins服务的的时区参数保证和宿主机时间一致
+-e TZ=“Asia/Shanghai” #设置 jenkins 服务的的时区参数保证和宿主机时间一致
 
--v /etc/localtime:/etc/localtime  #设置jenkins服务的的时区参数保证和宿主机时间一致
+-v /etc/localtime:/etc/localtime #设置 jenkins 服务的的时区参数保证和宿主机时间一致
 
--e JENKINS_OPTS="--prefix=/jenkins" -e JENKINS_ARGS="--prefix=/jenkins" #设置jenkins服务的访问项目名，如果后面要用到nginx代理ip端口进项访问，那么这个必须要设置
+-e JENKINS_OPTS="--prefix=/jenkins" -e JENKINS_ARGS="--prefix=/jenkins" #设置 jenkins 服务的访问项目名，如果后面要用到 nginx 代理 ip 端口进项访问，那么这个必须要设置
 
--v /install/jenkins_home:/var/jenkins_home  #将jenkins服务/var/jenkins_home的文件以及目录持久化到宿主机的/install/jenkins_home，可以便于我们对某些文件的操作，以及上传一些文件到容器内部使用
-
+-v /install/jenkins_home:/var/jenkins_home #将 jenkins 服务/var/jenkins_home 的文件以及目录持久化到宿主机的/install/jenkins_home，可以便于我们对某些文件的操作，以及上传一些文件到容器内部使用
 
 --privileged=true #权限 ，给容器赋予最高权限 （所有 docker 容器基本必须加的参数，会减少很多不必要的权限错误）
 
@@ -43,9 +42,8 @@ jenkins/jenkins:latest # 指定镜像的版本 格式：仓库地址/镜像项�
 ---
 
 #### 验证是否搭建成功：
-访问  http://宿主机IP:50001/jenkins/
 
-
+访问 http://宿主机 IP:50001/jenkins/
 
 ###### 修改方式有多种：
 

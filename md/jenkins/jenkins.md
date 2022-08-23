@@ -4,12 +4,21 @@
 <!-- 注释语法 和html中的注释语法一样，在vscode中快捷键一样 -->
 <!-- md超链接的语法是 [超链接的文字](链接地址)  ，如下-->
 <!-- 我自己已更改Markdown All in One插件的快捷键 -->
+<!-- rm -rf /install/jenkins_home -->
 
 # docker+jenkins+maven+springboot 自动化部署实战记录
 
-## 搭建 jenkins 服务
+### 搭建 jenkins 服务
 
-### 运行 jenkins 服务
+#### 创建需要的目录
+
+##### `mkdir -p /install/jenkins_home`
+
+#### 授予最高权限，避免一些权限问题
+
+##### `chmod -R 777 /install/jenkins_home`
+
+#### 运行服务
 
 ##### `docker run -d --name jenkins -uroot -p 50001:8080 -p 50000:50000 --restart=always -e TZ=“Asia/Shanghai” -e JENKINS_OPTS="--prefix=/jenkins" -e JENKINS_ARGS="--prefix=/jenkins" --privileged=true -v /install/jenkins_home:/var/jenkins_home -v /etc/localtime:/etc/localtime jenkins/jenkins:latest`
 
@@ -44,6 +53,8 @@ jenkins/jenkins:latest # 指定镜像的版本 格式：仓库地址/镜像项�
 #### 验证是否搭建成功：
 
 访问 http://宿主机 IP:50001/jenkins/
+
+![](https://new-coder-fei.github.io/pic/images/jenkins/1.png)
 
 ###### 修改方式有多种：
 

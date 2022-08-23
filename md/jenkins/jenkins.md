@@ -52,9 +52,13 @@ jenkins/jenkins:latest # 指定镜像的版本 格式：仓库地址/镜像项�
 
 #### 验证是否搭建成功：
 
-访问 http://宿主机 IP:50001/jenkins/
+1. 访问 http://宿主机 IP:50001/jenkins/,出现以下界面即运行成功
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/2.png)
+
+2.  进入宿主机挂载目录/install/jenkins_home/secrets，查看 initialAdminPassword 文件中得到初始密码
+
+3.
 
 ###### 修改方式有多种：
 

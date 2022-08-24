@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-08-24 10:09:30
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-08-24 18:19:57
+ * @LastEditTime: 2022-08-24 18:22:45
  * @FilePath: \dial-vante:\vscode-work-space\pic\md\jenkins\jenkins.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -14,7 +14,7 @@
 <!-- 我自己已更改Markdown All in One插件的快捷键 -->
 <!-- rm -rf /install/jenkins_home -->
 
-# docker+jenkins+maven+springboot 自动化部署实战记录
+# docker+jenkins+maven+springboot+vue 前后端自动化环境搭建第一章
 
 ### 搭建 jenkins 服务
 

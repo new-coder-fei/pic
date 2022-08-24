@@ -56,9 +56,14 @@ jenkins/jenkins:latest # 指定镜像的版本 格式：仓库地址/镜像项�
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/2.png)
 
-2.  进入宿主机挂载目录/install/jenkins_home/secrets，查看 initialAdminPassword 文件中得到初始密码
+2. 在宿主机执行 `cat /install/jenkins_home/secrets/initialAdminPassword` ,获取初始登录密码
 
-3.
+![](https://new-coder-fei.github.io/pic/images/jenkins/4.png)
+
+3.  选择点击安装推荐的插件
+4.  
+![](https://new-coder-fei.github.io/pic/images/jenkins/5.png)
+     
 
 ###### 修改方式有多种：
 

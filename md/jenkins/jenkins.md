@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-08-24 10:09:30
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-08-24 16:47:37
+ * @LastEditTime: 2022-08-24 17:57:34
  * @FilePath: \dial-vante:\vscode-work-space\pic\md\jenkins\jenkins.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -112,11 +112,12 @@ jenkins/jenkins:latest # 指定镜像的版本 格式：仓库地址/镜像项�
 ###### 在jenkins容器的宿主机挂载目录下面创建java目录，不同版本的jdk都已安装在下面
 
 `mkdir -p /install/jenkins_home/java`
+
 ###### 授予最高权限，避免一些权限问题
 
 `chmod -R 777 /install/jenkins_home/java`
 
-###### 利用xftp等工具将下载的jdk11的安装包上传至宿主机`/install/jenkins_home/java` 目录下面，这时候相应的容器内部 `/var/jenkins_home` 目录下面也有该jdk安装包了
+###### 利用xftp等工具将下载的jdk11的安装包上传至宿主机`/install/jenkins_home/java` 目录下面，这时候相应的容器内部 `/var/jenkins_home/java` 目录下面也有该jdk安装包了
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/17.png)
 
@@ -139,6 +140,56 @@ export PATH=$PATH:$JAVA_HOME/bin`
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/21.png)
 
-###### 在jenkins的web管理界面，系统管理==》全局工具配置==》JDK==》新增jdk==》取消勾选自动安装==》别名填写 `jdk-11.0.2`，JAVA_HOME填写 `/var/jenkins_home/java/jdk-11.0.2`,如下图所示
+###### 在jenkins的web管理界面，系统管理==》全局工具配置==》JDK==》新增jdk==》取消勾选自动安装==》别名填写 `jdk-11.0.2`，JAVA_HOME填写 `/var/jenkins_home/java/jdk-11.0.2`,点击下方的保存即可完成配置，如下图所示
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/22.png)
+
+
+
+
+
+#### 安装maven环境
+
+##### 和jdk一样，放弃jenkins的自动安装 
+
+###### 下载linux版本的maven3.6.3(这个版本比较稳定)，下载地址 华为镜像云地址： https://repo.huaweicloud.com/apache/maven/maven-3/3.6.3/binaries/
+
+![](https://new-coder-fei.github.io/pic/images/jenkins/23.png)
+
+###### 在jenkins容器的宿主机挂载目录下面创建maven目录，不同版本的maven都可以安装在下面
+
+`mkdir -p /install/jenkins_home/maven`
+
+###### 授予最高权限，避免一些权限问题
+
+`chmod -R 777 /install/jenkins_home/maven`
+
+###### 利用xftp等工具将下载的maven的安装包上传至宿主机`/install/jenkins_home/maven` 目录下面，这时候相应的容器内部 `/var/jenkins_home/maven` 目录下面也有该maven安装包了
+
+![](https://new-coder-fei.github.io/pic/images/jenkins/24.png)
+
+###### 利用xshell等linux终端工具， 执行`docker exec -it jenkins /bin/bash`进入容器内部命令行，在内部命令中再执行`ls /var/jenkins_home/maven/` ，查看该安装包是否存在
+
+![](https://new-coder-fei.github.io/pic/images/jenkins/25.png)
+
+
+###### 在切换到 `cd /var/jenkins_home/maven/`目录下面执行  `tar -zxvf apache-maven-3.6.3-bin.tar.gz`  解压安装到当前目录
+
+
+###### 在容器命令行执行`exit`退出容器返回宿主机命令行，执行  `docker cp jenkins:/etc/profile  /install/jenkins_home/maven` ,将容器内部的环境配置文件拷贝到宿主机进行操作（因为容器内部默认是没有vi或者vim命令的，不支持修改，不嫌麻烦可以在容器内部安装vi或者vi工具）,在执行 `vim /install/jenkins_home/maven/profile` ，复制下面内容到文件最后一行(并且需要把用下面的path来替换之前安装jdk时候的path)，保存退出，在执行 `docker cp /install/jenkins_home/maven/profile  jenkins:/etc/profile` 覆盖容器中的环境配置文件，再执行 `docker restart jenkins`，执行`docker exec -it jenkins /bin/bash`进入容器内部命令行,执行 `source /etc/profile`使得配置立即生效,最后执行  `mvn -version` ,出现下面截图内容即表示生效
+
+`export MAVEN_HOME=/usr/local/apache-maven-3.6.3
+export PATH=$MAVEN_HOME/bin:$JAVA_HOME/bin:$PATH`
+
+![](https://new-coder-fei.github.io/pic/images/jenkins/26.png)
+
+
+
+###### 在jenkins的web管理界面，系统管理==》全局工具配置==》Maven==》新增Maven==》取消勾选自动安装==》别名填写 `apache-maven-3.6.3`，MAVEN_HOME填写 `/var/jenkins_home/maven/apache-maven-3.6.3`,点击下方的保存即可完成配置，如下图所示
+
+![](https://new-coder-fei.github.io/pic/images/jenkins/27.png)
+
+
+###### 配置maven的国内镜像的setting.xml，[查看获取xml详细配置](链接地址),将获取到的setting.xml上传到宿主机 `/install/jenkins_home/maven` 目录下面，相应容器内部的`/var/jenkins_home/maven/`中也会同步该文件， 在jenkins的web管理界面，系统管理==》全局工具配置==》Maven 配置==》按照下图配置即可，点击下方的保存即可完成配置，如下图所示，至此maven安装完成
+
+![](https://new-coder-fei.github.io/pic/images/jenkins/28.png)

@@ -1,3 +1,11 @@
+<!--
+ * @Author: error: git config user.name && git config user.email & please set dead value or install git
+ * @Date: 2022-08-24 10:09:30
+ * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
+ * @LastEditTime: 2022-08-24 16:47:37
+ * @FilePath: \dial-vante:\vscode-work-space\pic\md\jenkins\jenkins.md
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <!--md的段落和段落之间必须空格一行，这样才会跳出上一个的格式 -->
 <!--md的#相当于word文档中的标题 1个#通常用做整个文档的标题  后面依次  最多支持6个#  而且和文字必须间隔一个空格才会生效 -->
 <!-- ``代码块可以完整的高亮显示任何代码以及脚本，当然也可以高亮任何标题：比如# 1. `项目使用` 自己已更改快捷键为，  tab+d -->
@@ -60,143 +68,77 @@ jenkins/jenkins:latest # 指定镜像的版本 格式：仓库地址/镜像项�
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/4.png)
 
-3.  选择点击安装推荐的插件
-4.  
+3.  选择点击安装推荐的插件，耐心等待所有插件安装完成
+
 ![](https://new-coder-fei.github.io/pic/images/jenkins/5.png)
-     
+![](https://new-coder-fei.github.io/pic/images/jenkins/6.png)
 
-###### 修改方式有多种：
+4.  注册一个非admin的用户，后面可以用该用户登录操作jenkins，拥有和admin用户的一样的权限，保存完成，开始使用jenkins
 
-###### `1.可以找到对应目录的文件用xftp下载到本地进行修改再传上去`
+![](https://new-coder-fei.github.io/pic/images/jenkins/7.png)
+![](https://new-coder-fei.github.io/pic/images/jenkins/8.png)
+![](https://new-coder-fei.github.io/pic/images/jenkins/9.png)
 
-###### `2.还可以直接在宿主机利用vi命令去修改`
+5.  安装jenkins中文插件
 
-###### `3.还可以直接linux的替换命令 sed直接替换（前面两种都需要人为介入修改，自动化程度不高，建议直接用sed，这样可以交给脚本完成）`
+![](https://new-coder-fei.github.io/pic/images/jenkins/10.png)
+![](https://new-coder-fei.github.io/pic/images/jenkins/11.png)
+![](https://new-coder-fei.github.io/pic/images/jenkins/12.png)
 
-将 gitlab.rb 中的 external_url 'GENERATED_EXTERNAL_URL' 替换成 external_url
-'http://你自己的宿主机 IP:45673'
+6. 在宿主机执行 `docker restart jenkins` 重启jenkins，加载最新的插件，此时回到web界面应该都是中文显示了
 
-<!-- `sed -i "s,# external_url 'GENERATED_EXTERNAL_URL',external_url 'http://你自己的宿主机IP:45673',g" /install/gitlab/etc/gitlab.rb` -->
-<!-- 上面的容易匹配不了 ，下面的才能更匹配直接换行内容 -->
+![](https://new-coder-fei.github.io/pic/images/jenkins/13.png)
+![](https://new-coder-fei.github.io/pic/images/jenkins/14.png)
 
-sed -i "33c external_url 'http://你自己宿主机的 ip:45673'" /install/gitlab/etc/gitlab.rb
 
-#将/gitlab.yml 中的 13 行整行换成 前面 4 个缩进空格（因为是 yml 文件，必须手动输入空格,不然默认整行替换没有缩进，文件内容格式不对）的后面是 host: 你自己的宿主机 IP
 
-`sed -i "13c \ \ \ \ host: 你自己的宿主机IP" /install/gitlab/data/gitlab-rails/etc/gitlab.yml`
 
-#修改 gitlab 容器内部 web 界面服务默认端口 80 为 45673，将/gitlab.yml 中的 14 行整行换成 前面 4 个缩进空格（前面 4 个缩进空格（因为是 yml 文件，必须手动输入空格,不然默认整行替换没有缩进，文件内容格式不对））的后面是 port: 45673
 
-`sed -i "14c \ \ \ \ port: 45673" /install/gitlab/data/gitlab-rails/etc/gitlab.yml `
+#### 安装jdk环境
 
-然后重启 gitlab 服务容器（和第一次启动一样，gitlab 比较大所以需要多等几分钟）
+##### 自动安装jdk，但是这种方案感觉不太稳定，容易出错
 
-`docker restart gitlab`
+![](https://new-coder-fei.github.io/pic/images/jenkins/15.png)
 
-`然后用root+初始密码登录==>查看有个默认的Monitoring项目仓库==>看他的clone的地址的IP和端口是否和你浏览器输入的一致（如果是域名就看域名是否一致即可）`
 
----
+#####  手动安装jdk，这种方式不论是容器部署的jenkins还是物理机装的jenkins都很稳定，不易出错
 
-##### 验证 gitlab 是否搭建成功
 
-gitlab 容器启动完成以后，至少得等待个 3 分钟左右以上，然后访问 http://你自己的宿主机 IP:45673 ，如果什么都没有，那就再耐心等待几分钟，如果访问出现 502 了，那也就说明服务启动正常的但是还没启动完，还需要再耐心等待 2 分钟左右，再刷新 URL 知道出现下面界面，当然服务器配置很好，也有可能等个 3 分钟就能直接访问到该页面，所以验证 gitlab 是否正常启动的标准就是是否出现登录页面
 
----
+###### 下载linux版本的jdk11(jenkins2.357版本以后只支持jdk11及以上，jdk1.8会报错)，下载地址 华为镜像云地址： https://repo.huaweicloud.com/java/jdk/11.0.2+9/
 
-##### root 管理员初始密码查看
+![](https://new-coder-fei.github.io/pic/images/jenkins/16.png)
 
-gitlab 的默认管理账号是 root，但是初始密码需要根据进入 gitlab 的容器以后输入命令查看进入 gitlab 容器的命令行
+###### 在jenkins容器的宿主机挂载目录下面创建java目录，不同版本的jdk都已安装在下面
 
-`docker exec -it gitlab bash`
+`mkdir -p /install/jenkins_home/java`
+###### 授予最高权限，避免一些权限问题
 
-查看密码
+`chmod -R 777 /install/jenkins_home/java`
 
-`grep 'Password:' /etc/gitlab/initial_root_password`
+###### 利用xftp等工具将下载的jdk11的安装包上传至宿主机`/install/jenkins_home/java` 目录下面，这时候相应的容器内部 `/var/jenkins_home` 目录下面也有该jdk安装包了
 
-出现一个 password 的后面就是你的 root 的初始登录密码
+![](https://new-coder-fei.github.io/pic/images/jenkins/17.png)
 
-退出容器,回到宿主机
+###### 利用xshell等linux终端工具， 执行`docker exec -it jenkins /bin/bash`进入容器内部命令行，在内部命令中再执行`cd /var/jenkins_home/java/`==》 `ls` ，查看该jdk安装包是否存在
 
-`exit`
+![](https://new-coder-fei.github.io/pic/images/jenkins/18.png)
 
-以上 3 个步骤还有个更简单的执行方式，就是下面，把 bsh 换成要执行的命令，就直接在宿主机就可以查看了，不需要进入在退出容器（这种操作同样也可以在其他容器使用，凡是需要进入容器执行命令在退出容器的操作，都可以用这种方式代替）
 
-`sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password`
+![](https://new-coder-fei.github.io/pic/images/jenkins/19.png)
 
----
 
-##### 修改 root 账号的初始面的方法
+###### 在当前`/var/jenkins_home/java/`目录下面执行  `tar -zxvf jdk-11.0.2_linux-x64_bin.tar.gz`  解压安装到当前目录
 
-进入 gitlab 以后，先及时修改 root 账号的密码，然后重新登录
+![](https://new-coder-fei.github.io/pic/images/jenkins/20.png)
 
-`右上角头像=>Edit Profile=>左侧菜单栏 Password=>依次输入旧密码，新密码，确认新密码=>Save Password=>重新登录即可`
+###### 在容器命令行执行`exit`退出容器返回宿主机命令行，执行  `docker cp jenkins:/etc/profile  /install/jenkins_home/java` ,将容器内部的环境配置文件拷贝到宿主机进行操作（因为容器内部默认是没有vi或者vim命令的，不支持修改，不嫌麻烦可以在容器内部安装vi或者vi工具）,在执行 `vim /install/jenkins_home/java/profile` ，复制下面内容到文件最后一行，保存退出，在执行 `docker cp /install/jenkins_home/java/profile  jenkins:/etc/profile` 覆盖容器中的环境配置文件，再执行 `docker restart jenkins`，执行`docker exec -it jenkins /bin/bash`进入容器内部命令行,执行 `source /etc/profile`使得配置立即生效,最后执行  `java -version` ,出现下面截图内容即表示生效
+`export JAVA_HOME=/var/jenkins_home/java/jdk-11.0.2
+export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export PATH=$PATH:$JAVA_HOME/bin`
 
-[gitlabCI 配置文件点击查看](https://github.com/new-coder-fei/pic/blob/master/images/.gitlab-ci.yml)
+![](https://new-coder-fei.github.io/pic/images/jenkins/21.png)
 
----
+###### 在jenkins的web管理界面，系统管理==》全局工具配置==》JDK==》新增jdk==》取消勾选自动安装==》别名填写 `jdk-11.0.2`，JAVA_HOME填写 `/var/jenkins_home/java/jdk-11.0.2`,如下图所示
 
-## 搭建 gitlab-runner 服务
-
-### 执行命令：
-
-#### 拉取 gitlab-runner 的 docker 镜像
-
-`docker pull gitlab/gitlab-runner`
-
-#### 运行 gitlab-runner 的容器服务
-
-`docker run -d --name gitlab-runner --restart always --privileged=true -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -v /install/gitlab-runner/config:/etc/gitlab-runner -v /etc/sysconfig/docker:/etc/sysconfig/docker -v /usr/bin/docker-current:/usr/bin/docker-current gitlab/gitlab-runner:latest`
-
-#### 修改挂载在宿主机的配置文件，依次执行下面三条命令
-
-`sed -i 's!"/cache"!"/cache","/var/run/docker.sock:/var/run/docker.sock","/usr/local/repos/gradle:/usr/local/repos/gradle","/etc/sysconfig/docker:/etc/sysconfig/docker","/usr/bin/docker-current:/usr/bin/docker-current","/usr/bin/docker:/usr/bin/docker"!g' /install/gitlab-runner/config/config.toml`
-
-`sed -i 's,privileged = false,privileged = true,g' /install/gitlab-runner/config/config.toml`
-
-重启 gitlab-runner 容器,让最新配置生效
-
-`docker restart gitlab-runner`
-
-#### 注册 gitlab-runner 执行器到 gitlab
-
-##### 获取 gitlab 仓库 CICD 的 token 以及注册 URL
-
-`新建一个仓库点进去==>左侧菜单Settings==>CICD==>Runners==>复制Register the runner with this URL下面的url==>复制And this registration token`
-
-##### 注册 gitlab-runner 容器到 gitlab
-
-执行命令：
-
-`docker exec -it gitlab-runner gitlab-runner register`
-
-然后按照上面命令给出的提示依次输入，每次输入完成回车到下一项:
-
-`注册URL(上一步获取的)==>注册token（上一步获取的）==>run-desc(命名可以随意)==>run tags(命名可以随意，可以编写ci配置文件会用上) ==>run main(命名可以随意)==>docker(必选docker构建容器)==>alpine:latest(必输docker的版本)`
-
-检验执行器是否注册成功：
-
-`回到之前查看token的那个gitlab页面，刷新一下 在token下面会有一个 Available specific runners ,并且前面的图标是绿色的代表注册成功`
-
----
-
-## 搭建私有化 registry 镜像仓库服务
-
-### 私有化镜像仓库和 docker 安装的时候自带的镜像库的区别:
-
-`私有化镜像仓库可以给网络相同的任一服务器上面的docker服务提供镜像下载服务，而docker自带的镜像库就是只能给当前服务器上面的docker服务提供镜像依赖`
-
-### 执行命令：
-
-#### 拉取 registry 镜像
-
-`docker pull registry:latest`
-
-#### 运行 registry 容器服务
-
-`docker run -d -v /install/registry:/var/lib/registry -e REGISTRY_STORAGE_DELETE_ENABLED="true" -p 5000:5000 --restart=always --name docker-registry registry:latest`
-
-#### 命令行 curl 验证是否搭建成功
-
-`curl -X GET http://localhost:5000/v2/_catalog`
-
-出现{"repositories":[]}，空数组就说明安装成功了，只是现在还没有上传镜像所以还是空数组
+![](https://new-coder-fei.github.io/pic/images/jenkins/22.png)

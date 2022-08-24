@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-08-24 10:09:30
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-08-24 17:57:34
+ * @LastEditTime: 2022-08-24 18:17:30
  * @FilePath: \dial-vante:\vscode-work-space\pic\md\jenkins\jenkins.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -193,3 +193,17 @@ export PATH=$MAVEN_HOME/bin:$JAVA_HOME/bin:$PATH`
 ###### 配置maven的国内镜像的setting.xml，[查看获取xml详细配置](链接地址),将获取到的setting.xml上传到宿主机 `/install/jenkins_home/maven` 目录下面，相应容器内部的`/var/jenkins_home/maven/`中也会同步该文件， 在jenkins的web管理界面，系统管理==》全局工具配置==》Maven 配置==》按照下图配置即可，点击下方的保存即可完成配置，如下图所示，至此maven安装完成
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/28.png)
+
+
+
+#### 安装前端Node环境
+
+##### 下载node.js的jenkins插件，按照下图操作
+
+![](https://new-coder-fei.github.io/pic/images/jenkins/29.png)
+![](https://new-coder-fei.github.io/pic/images/jenkins/30.png)
+
+
+##### 配置全局node.js的版本，建议 如果是最好用node14.17.2这个版本，这个版本适合vue2，vue3，react都可以打包，当然你也可以根据你自己的项目来决定，也可以像jdk一样多装几个，如下图配置，点击下方的保存即可完成配置
+
+![](https://new-coder-fei.github.io/pic/images/jenkins/31.png)

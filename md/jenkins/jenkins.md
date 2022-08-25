@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-08-24 10:09:30
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-08-24 18:22:45
+ * @LastEditTime: 2022-08-25 11:02:44
  * @FilePath: \dial-vante:\vscode-work-space\pic\md\jenkins\jenkins.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -37,7 +37,9 @@
 #### 命令详细解释：
 
 docker run
+
 -d #表示后台运行 （所有 docker 容器基本必须加的参数）
+
 --name jenkins #表示该容器的名称，必须是唯一·的值，不能重复，可以用它他来代替容器 id，更容易记忆，就类似于域名和 IP 的关系，用它可以代替容器 ID 删除，或者停止容器服务
 
 --restart always #能够使我们在重启 docker 时，自动启动相关容器 （所有 docker 容器基本必须加的参数）
@@ -64,28 +66,33 @@ jenkins/jenkins:latest # 指定镜像的版本 格式：仓库地址/镜像项�
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/2.png)
 
-2. 在宿主机执行 `cat /install/jenkins_home/secrets/initialAdminPassword` ,获取初始登录密码
+
+1. 修改jeknins插件的下载地址成国内镜像地址，加速插件下载， 在宿主机执行 `vim /install/jenkins_home/hudson.model.UpdateCenter.xml`,将 url 修改为 清华大学官方镜像：  `https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json`  
+
+![](https://new-coder-fei.github.io/pic/images/jenkins/32.png)
+
+3. 在宿主机执行 `cat /install/jenkins_home/secrets/initialAdminPassword` ,获取初始登录密码
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/4.png)
 
-3.  选择点击安装推荐的插件，耐心等待所有插件安装完成
+4.  选择点击安装推荐的插件，耐心等待所有插件安装完成
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/5.png)
 ![](https://new-coder-fei.github.io/pic/images/jenkins/6.png)
 
-4.  注册一个非admin的用户，后面可以用该用户登录操作jenkins，拥有和admin用户的一样的权限，保存完成，开始使用jenkins
+5.  注册一个非admin的用户，后面可以用该用户登录操作jenkins，拥有和admin用户的一样的权限，保存完成，开始使用jenkins
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/7.png)
 ![](https://new-coder-fei.github.io/pic/images/jenkins/8.png)
 ![](https://new-coder-fei.github.io/pic/images/jenkins/9.png)
 
-5.  安装jenkins中文插件
+6.  安装jenkins中文插件
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/10.png)
 ![](https://new-coder-fei.github.io/pic/images/jenkins/11.png)
 ![](https://new-coder-fei.github.io/pic/images/jenkins/12.png)
 
-6. 在宿主机执行 `docker restart jenkins` 重启jenkins，加载最新的插件，此时回到web界面应该都是中文显示了
+7. 在宿主机执行 `docker restart jenkins` 重启jenkins，加载最新的插件，此时回到web界面应该都是中文显示了
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/13.png)
 ![](https://new-coder-fei.github.io/pic/images/jenkins/14.png)

@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-08-24 10:09:30
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-08-25 17:24:19
+ * @LastEditTime: 2022-08-25 17:41:48
  * @FilePath: \dial-vante:\vscode-work-space\pic\md\jenkins\jenkins.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -113,3 +113,12 @@ Key：私钥的内容。如果此处填入了值，则以此处的值为准，�
 ![](https://new-coder-fei.github.io/pic/images/jenkins/62.png)
 ![](https://new-coder-fei.github.io/pic/images/jenkins/61.png)
 ![](https://new-coder-fei.github.io/pic/images/jenkins/63.png)
+
+
+##### 远端服务器后端文件上传目录 示例,[查看获取部署后端dockerfile文件示例](https://new-coder-fei.github.io/pic/images/jenkins/java/Dockerfile),[查看获取部署后端启动脚本示例](https://new-coder-fei.github.io/pic/images/jenkins/java/restart_java.sh)
+
+![](https://new-coder-fei.github.io/pic/images/jenkins/64.png)
+
+##### 远端服务器前端文件上传目录 示例，[查看获取部署前端dockerfile文件示例](https://new-coder-fei.github.io/pic/images/jenkins/vue/Dockerfile),[查看获取部署前端启动脚本示例](https://new-coder-fei.github.io/pic/images/jenkins/java/restart_vue.sh),[查看获取部署前端nginx.conf示例](https://new-coder-fei.github.io/pic/images/jenkins/java/nginx.conf)
+
+![](https://new-coder-fei.github.io/pic/images/jenkins/65.png)

@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-08-24 10:09:30
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-08-25 11:02:44
+ * @LastEditTime: 2022-08-25 11:06:22
  * @FilePath: \dial-vante:\vscode-work-space\pic\md\jenkins\jenkins.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -67,7 +67,7 @@ jenkins/jenkins:latest # 指定镜像的版本 格式：仓库地址/镜像项�
 ![](https://new-coder-fei.github.io/pic/images/jenkins/2.png)
 
 
-1. 修改jeknins插件的下载地址成国内镜像地址，加速插件下载， 在宿主机执行 `vim /install/jenkins_home/hudson.model.UpdateCenter.xml`,将 url 修改为 清华大学官方镜像：  `https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json`  
+1. 修改jeknins插件的下载地址成国内镜像地址，加速插件下载， 在宿主机执行 `vim /install/jenkins_home/hudson.model.UpdateCenter.xml`,将 url 修改为 清华大学官方镜像：  `https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json`,  在宿主机执行 `docker restart jenkins` 重启jenkins
 
 ![](https://new-coder-fei.github.io/pic/images/jenkins/32.png)
 

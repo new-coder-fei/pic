@@ -83,6 +83,11 @@ jenkins/jenkins:latest # 指定镜像的版本 格式：仓库地址/镜像项�
 ![](https://new-coder-fei.github.io/pic/images/jenkins/14.png)
 
 
+7. 安装jdk环境，
+
+![](https://new-coder-fei.github.io/pic/images/jenkins/13.png)
+![](https://new-coder-fei.github.io/pic/images/jenkins/14.png)
+
 ###### 修改方式有多种：
 
 ###### `1.可以找到对应目录的文件用xftp下载到本地进行修改再传上去`
